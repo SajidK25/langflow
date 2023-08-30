@@ -128,7 +128,7 @@ def serve_on_jcloud():
 @app.command()
 def run(
     host: str = typer.Option(
-        "127.0.0.1", help="Host to bind the server to.", envvar="LANGFLOW_HOST"
+        "0.0.0.0", help="Host to bind the server to.", envvar="LANGFLOW_HOST"
     ),
     workers: int = typer.Option(
         2, help="Number of worker processes.", envvar="LANGFLOW_WORKERS"
