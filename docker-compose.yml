@@ -5,6 +5,7 @@ services:
     build:
       context: ./
       dockerfile: ./dev.Dockerfile
+    container_name: lanflow_be
     ports:
       - "7860:7860"
     volumes:
@@ -17,12 +18,33 @@ services:
       dockerfile: ./dev.Dockerfile
       args:
         - BACKEND_URL=http://backend:7860
+    container_name: lanflow_se
     environment:
       - VITE_PROXY_TARGET=http://backend:7860
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=auto-gpt.tech"
+      - "traefik.http.routers.lanflow-insecure.rule=Host(`agent.auto-gpt.tech`)"
+      - "traefik.http.routers.lanflow-insecure.entrypoints=web"
+      - "traefik.http.middlewares.lanflow-redirect-web-secure.redirectscheme.scheme=https"
+      - "traefik.http.routers.lanflow-insecure.middlewares=lanflow-redirect-web-secure"
+      - "traefik.http.routers.lanflow.rule=Host(`agent.auto-gpt.tech`)"
+      - "traefik.http.routers.lanflow.entrypoints=websecure"
+      - "traefik.http.routers.lanflow.tls=true"
+      - "traefik.http.routers.lanflow.tls.certresolver=myresolver"
+      # - "traefik.http.routers.lanflow.middlewares=lanflow_auth"
+      # - "traefik.http.middlewares.lanflow_auth.basicauth.users=DEA:$$2y$$05$$u6owE6I3Hlmnjx6L9GiF0.Txrr022V20vsbKsUpAtWiq0VWlxn.t."
+    networks:
+      - auto-gpt.tech
+      - default
     volumes:
       - ./src/frontend/public:/home/node/app/public
       - ./src/frontend/src:/home/node/app/src
       - ./src/frontend/package.json:/home/node/app/package.json
     restart: on-failure
+
+networks:
+  auto-gpt.tech:
+    external: true
