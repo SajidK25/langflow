@@ -11,6 +11,8 @@ services:
     volumes:
       - ./:/app
     command: bash -c "uvicorn --factory src.backend.langflow.main:create_app --host 0.0.0.0 --port 7860 --reload"
+    networks:
+      - default
 
   frontend:
     build:
