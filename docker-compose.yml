@@ -36,9 +36,9 @@ services:
       - "traefik.http.routers.lanflow.entrypoints=websecure"
       - "traefik.http.routers.lanflow.tls=true"
       - "traefik.http.routers.lanflow.tls.certresolver=myresolver"
-      - "traefik.http.services.lanflow.loadbalancer.server.port: 3000"
-      - "traefik.http.services.lanflow.loadbalancer.sticky.cookie.httpOnly: true"
-      - "traefik.http.services.lanflow.loadbalancer.sticky.cookie.secure: true"
+      - "traefik.http.services.lanflow.loadbalancer.server.port=3000"
+      - "traefik.http.services.lanflow.loadbalancer.sticky.cookie.httpOnly=true"
+      - "traefik.http.services.lanflow.loadbalancer.sticky.cookie.secure=true"
       # - "traefik.http.routers.lanflow.middlewares=lanflow_auth"
       # - "traefik.http.middlewares.lanflow_auth.basicauth.users=DEA:$$2y$$05$$u6owE6I3Hlmnjx6L9GiF0.Txrr022V20vsbKsUpAtWiq0VWlxn.t."
     networks:
