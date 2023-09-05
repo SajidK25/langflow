@@ -28,11 +28,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=auto-gpt.tech"
-      - "traefik.http.routers.lanflow-insecure.rule=Host(`agent.auto-gpt.tech`)"
+      - "traefik.http.routers.lanflow-insecure.rule=Host(`cxo.mium.chat`)"
       - "traefik.http.routers.lanflow-insecure.entrypoints=web"
       - "traefik.http.middlewares.lanflow-redirect-web-secure.redirectscheme.scheme=https"
       - "traefik.http.routers.lanflow-insecure.middlewares=lanflow-redirect-web-secure"
-      - "traefik.http.routers.lanflow.rule=Host(`agent.auto-gpt.tech`)"
+      - "traefik.http.routers.lanflow.rule=Host(`cxo.mium.chat`)"
       - "traefik.http.routers.lanflow.entrypoints=websecure"
       - "traefik.http.routers.lanflow.tls=true"
       - "traefik.http.routers.lanflow.tls.certresolver=myresolver"
